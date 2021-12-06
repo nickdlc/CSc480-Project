@@ -4,10 +4,12 @@
 //Initial commit - I constructed two classes a member class and a party class. 
 //I developed a few methods and declared several other methods that we should to develop.
 
+#include <NTL/ZZ_pX.h>
 #include <iostream>
 #include <vector>
 #include <map>
 
+using namespace NTL;
 using namespace std;
 
 //represents a member in a party
@@ -30,12 +32,12 @@ class member{
         vector<float> my_coefficients_to_g; //stores the coefficients of the member's polynomial (little function) as the exponent to generator g
 
     //constructor
-    member(int index){
+    member(const int index){
         this->index = index;
     }; //constructed based on party and index of that member
 
     //copy constructor
-    member(member& m){
+    member(const member& m){
         this->index = m.index;
     }
 
