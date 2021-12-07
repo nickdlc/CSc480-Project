@@ -1,8 +1,6 @@
-//Chelsea Lantigua 
+//Chelsea Lantigua
 //Fall 2021 
 //CSc 480
-//Initial commit - I constructed two classes a member class and a party class. 
-//I developed a few methods and declared several other methods that we should to develop.
 
 #include <NTL/ZZ_pX.h>
 #include <gmp.h>
@@ -21,6 +19,9 @@
 
 using namespace NTL;
 using namespace std;
+
+/* global vars for params q,p,g */
+mpz_t param_q, param_p, param_g;
 
 //represents a member in a party
 class member{
@@ -195,6 +196,11 @@ void generate_params() {
 									   the subgroup. */
 	fclose(f);
 	gmp_printf("g = %Zd\n",g);
+    
+    mpz_set(param_q, q);
+    mpz_set(param_p, p);
+    mpz_set(param_g, g);
+
 }
 
 int main(){
@@ -204,6 +210,8 @@ int main(){
     member m(3);
     cout << "member number " << m.getIndex() << endl;
     cout << "party size of threshold " << party1.threshold << endl;
+
+    generate_params();
 
     return 0; 
 }
