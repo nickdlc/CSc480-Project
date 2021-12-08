@@ -2,7 +2,6 @@
 *.tar.gz
 *.tar.lz
 ntl*
-gmp*
 
 *.exe
 *.out
