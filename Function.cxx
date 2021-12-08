@@ -18,6 +18,12 @@ Function::Function(unsigned int deg) {
 }
 
 void Function::evaluate_f(mpz_t res, unsigned int x) {
+    /* @param res: initial mpz_t value which is used to store the result
+     * @param x: unsigned int to evaluate f at
+     *
+     * Computes f(x) and stores the result in res */
+    
+    // Convert x to mpz_t
     NEWZ(x_mpz);
     mpz_init_set_ui(x_mpz, x);
     
@@ -29,6 +35,8 @@ void Function::evaluate_f(mpz_t res, unsigned int x) {
         mpz_mul(intermediate, coeff_i, intermediate);
         mpz_add(sum, sum, intermediate);
     }
+
+    // Free space for intermediate and x_mpz
     mpz_clear(intermediate);
     mpz_clear(x_mpz);
     mpz_mod(sum, sum, param_q);
@@ -36,11 +44,18 @@ void Function::evaluate_f(mpz_t res, unsigned int x) {
     mpz_set(res, sum);
 }
 
-void Fucntion::get_secret(mpz_t res) { return evaluate_f(res, 0); }
+void Fucntion::get_secret(mpz_t res) {
+    /* @param res: initial mpz_t value which is used to store the secret f(0)
+     *
+     * Stores f(0) in res */
+    
+    evaluate_f(res, 0);
+}
 
 Function::~Function() {
     for (int i = 0; i < this->deg + 1; i++) {
+        // Free space for each coefficient and generator g
         mpz_clear(*(this->coeffs[i]));
-        mpz_clear(*(this->coeffs[i]));
+        mpz_clear(*(this->generators[i]));
     }
 }
