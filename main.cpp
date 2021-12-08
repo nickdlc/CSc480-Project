@@ -8,23 +8,17 @@
 #include <vector>
 #include <map>
 
+#include "gmp_defs.h"
 #include "Member.h"
 #include "Party.h"
-
-/* defines adapted from Piazza posts */
-#define ISPRIME(x) mpz_probab_prime_p(x,10)
-/* macro to declare a new long integer: */
-#define NEWZ(x) mpz_t x; mpz_init(x)
-/* these will read/write integers from byte arrays where the
- * least significant byte is first (little endian bytewise). */
-#define BYTES2Z(x,buf,len) mpz_import(x,len,-1,1,0,0,buf)
-#define Z2BYTES(buf,len,x) mpz_export(buf,&len,-1,1,0,0,x)
+#include "Function.h"
 
 using namespace NTL;
 using namespace std;
 
-/* global vars for params q,p,g */
+/* global vars for params q,p,g,rand_state */
 mpz_t param_q, param_p, param_g;
+gmp_randstate_t rand_state;
 
 bool primetest(mpz_t p) {
     while (gmp_scanf("%Zd",p) == 1) {
@@ -90,6 +84,9 @@ void generate_params() {
     mpz_set(param_q, q);
     mpz_set(param_p, p);
     mpz_set(param_g, g);
+	
+	// Generate the random state for our random number generation
+	gmp_randinit_default(rand_state);
 
 }
 
@@ -107,8 +104,9 @@ int main(int argc, char* argv[]) {
         t = 7;
     }
     
-    //testing    
+	cout << "Create party of " << n << "players with threshold " << t << "." << endl;
     Party party1(n, t);
+	
     Member m(3);
     cout << "member number " << m.getIndex() << endl;
     cout << "party size of threshold " << party1.threshold << endl;
