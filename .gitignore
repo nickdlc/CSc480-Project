@@ -1,0 +1,11 @@
+*.tar
+*.tar.gz
+*.tar.lz
+ntl*
+gmp*
+
+*.exe
+*.out
+.DS_Store
+*.tgz
+gen-params/
