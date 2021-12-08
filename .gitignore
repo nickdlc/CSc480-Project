@@ -9,3 +9,4 @@ gmp*
 .DS_Store
 *.tgz
 gen-params/
+main
