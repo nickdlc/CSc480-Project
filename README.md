@@ -3,12 +3,10 @@ Distributed key generation for a threshold encryption and signature scheme that 
 
 **Language:** C++
 
-**Compile `group_project.cpp` using:** `g++ -std=c++11 group_project.cpp -lntl -lgmp -lm`
+**Compile `group_project.cpp`:** Run Makefile
 
 **Goals:** 
 
 Phase 1: standard distributed key gen
 
 Phase 2: a check to make sure there is no dishonest party
-
-Phase 3:
