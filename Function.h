@@ -6,8 +6,12 @@
 
 using namespace std;
 
+extern mpz_t param_g, param_q;
+extern gmp_randstate_t rand_state;
+
 class Function {
     public:
+        Function();
         Function(unsigned int deg);
         Function(const Function& f);
         

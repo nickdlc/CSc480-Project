@@ -104,14 +104,14 @@ int main(int argc, char* argv[]) {
         t = 7;
     }
     
+	generate_params();
+	
 	cout << "Create party of " << n << "players with threshold " << t << "." << endl;
-    Party party1(n, t);
+    //Party party1(n, t);
 	
     Member m(3, t);
-    cout << "member number " << m.getIndex() << endl;
-    cout << "party size of threshold " << party1.threshold << endl;
-    
-    generate_params();
+    //cout << "member number " << m.getIndex() << endl;
+    //cout << "party size of threshold " << party1.threshold << endl;
 
     return 0; 
 }
