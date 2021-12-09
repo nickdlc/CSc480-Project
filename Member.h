@@ -9,6 +9,8 @@
 using std::ifstream;
 using std::ofstream;
 
+#include "Function.h"
+#include "gmp.h"
 
 using namespace std;
 using namespace NTL;
@@ -26,7 +28,8 @@ class member{
         map<member*, float> shares_from_others; //stores all shares the other members of the group will send you
         map<member*, vector<float> > othersCoefficients; //store the coefficients vector of the others members for phase 2
         vector<float> my_coefficients; //stores the coefficients of the member's polynomial (little function) 
-        
+        qual_t qualified_players; // list of qualified players
+
 
     public:
         //party my_party; 
@@ -36,6 +39,7 @@ class member{
         unsigned int threshold; //threshold size from party
         unsigned int size_of_party; //party size from party
         ZZ_pX function;
+        unsigned int deg;
 
         //constructor
         member(){}
@@ -119,5 +123,8 @@ class member{
 
         //broadcast the coefficients to a members of the party
         void broadcast_coefficient(){}; // To do
+
+
+
 
 };

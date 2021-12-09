@@ -1,3 +1,5 @@
+using namespace std;
+
 /* defines adapted from Piazza posts */
 #define ISPRIME(x) mpz_probab_prime_p(x,10)
 /* macro to declare a new long integer: */
@@ -6,3 +8,6 @@
  * least significant byte is first (little endian bytewise). */
 #define BYTES2Z(x,buf,len) mpz_import(x,len,-1,1,0,0,buf)
 #define Z2BYTES(buf,len,x) mpz_export(buf,&len,-1,1,0,0,x)
+
+typedef vector<mpz_t*> coefficients_t;
+typedef vector<unsigned int> qual_t;

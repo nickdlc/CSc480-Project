@@ -141,6 +141,12 @@ int main(int argc, char* argv[]) {
     cout << "\nlittle function coefficient at index 2 for member " << party1.all_members[9].getIndex()  << ", is: \n" <<  party1.all_members[9].get_little_function()[2]  << endl; 
 
     //generate_params();
+	
+	//cout << "Create party of " << n << "players with threshold " << t << "." << endl;
+    //Party party1(n, t);
+    //Member m(3, t);
+    //cout << "member number " << m.getIndex() << endl;
+    //cout << "party size of threshold " << party1.threshold << endl;
 
     return 0; 
 }
