@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 	cout << "Create party of " << n << "players with threshold " << t << "." << endl;
     Party party1(n, t);
 	
-    Member m(3);
+    Member m(3, t);
     cout << "member number " << m.getIndex() << endl;
     cout << "party size of threshold " << party1.threshold << endl;
     

@@ -17,6 +17,18 @@ Function::Function(unsigned int deg) {
     }
 }
 
+Function::Function(const Function& f) {
+    for (int i = 0; i < f.deg + 1; i++) {
+        NEWZ(coeff);
+        mpz_set(coeff, *f.coeffs[i]);
+        this->coeffs.push_back(&coeff);
+
+        NEWZ(g_coeff);
+        mpz_set(g_coeff, *f.generators[i]);
+        this->generators.push_back(&g_coeff);
+    }
+}
+
 void Function::evaluate_f(mpz_t res, unsigned int x) {
     /* @param res: initial mpz_t value which is used to store the result
      * @param x: unsigned int to evaluate f at
@@ -44,7 +56,7 @@ void Function::evaluate_f(mpz_t res, unsigned int x) {
     mpz_set(res, sum);
 }
 
-void Fucntion::get_secret(mpz_t res) {
+void Function::get_secret(mpz_t res) {
     /* @param res: initial mpz_t value which is used to store the secret f(0)
      *
      * Stores f(0) in res */
