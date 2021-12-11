@@ -9,11 +9,13 @@
 using std::ifstream;
 using std::ofstream;
 
-#include "Function.h"
 #include "gmp.h"
+#include "defs.h"
 
 using namespace std;
 using namespace NTL;
+
+// Function implementations in the Member.cpp file
 
 
 //represents a member in a party
@@ -29,8 +31,10 @@ class member{
         map<member*, vector<float> > othersCoefficients; //store the coefficients vector of the others members for phase 2
         vector<float> my_coefficients; //stores the coefficients of the member's polynomial (little function) 
         qual_t qualified_players; // list of qualified players
+        ZZ_pX function;
 
 
+        map<member_index_t, ZZ_p> member_shares;
     public:
         //party my_party; 
         int index; //index of the member   
@@ -38,27 +42,18 @@ class member{
         vector<float> my_coefficients_to_g; //stores the coefficients of the member's polynomial (little function) as the exponent to generator g
         unsigned int threshold; //threshold size from party
         unsigned int size_of_party; //party size from party
-        ZZ_pX function;
         unsigned int deg;
 
         //constructor
         member(){}
-        member(int ind){
-            index = ind;
-
-        }; //constructed based on party and index of that member
-        member(int ind, unsigned int party_size, unsigned int threshold_size){
-            index = ind;
-            size_of_party = party_size;
-            threshold = threshold_size;
-
-        }; //constructed based on party and index of that member
+        
+        member(int ind);
+        
+        member(int ind, unsigned int party_size, unsigned int threshold_size);
 
 
         //copy constructor
-        member(const member &m){
-            index = m.index;
-        } 
+        member(const member &m);
 
         void setIndex(int i){
             index = i++; //index can not be 0
@@ -77,7 +72,7 @@ class member{
         }
 
         //generate a share for everyone else in the threshold -- excluding yourself
-        float generate_shares();
+        void generate_shares();
             
 
         //refers to the other member objects in the party to set their shares_from_others map based on our shares_for_others map.

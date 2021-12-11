@@ -9,7 +9,7 @@
 #include <vector>
 #include <map>
 
-#include "gmp_defs.h"
+#include "defs.h"
 #include "Party.h"
 #include "Member.h"
 #include "Function.h"
@@ -20,9 +20,16 @@
 using namespace NTL;
 using namespace std;
 
+/* GLOBAL VARIABLES */
+
 /* global vars for params q,p,g,rand_state */
 mpz_t param_q, param_p, param_g;
 gmp_randstate_t rand_state;
+
+/* global vars for member list */
+party all_nodes;
+
+/* END GLOBAL VARIABLES */
 
 bool primetest(mpz_t p) {
     while (gmp_scanf("%Zd",p) == 1) {
@@ -133,8 +140,8 @@ int main(int argc, char* argv[]) {
         function = random_ZZ_pX(party1.size_of_party);
         party1.all_members[i].set_little_function(function);
         cout << "little function for member, " << party1.all_members[i].getIndex()  << ", is: \n" <<  party1.all_members[i].get_little_function()  << endl; 
-
-     }
+    }
+	
 	//brings 3 coefficients from the little polynomial of the member with index 10 who is in party1.
     cout << "\nlittle function coefficient at index 0 for member " << party1.all_members[9].getIndex()  << ", is: \n" <<  party1.all_members[9].get_little_function()[0]  << endl; 
     cout << "\nlittle function coefficient at index 1 for member " << party1.all_members[9].getIndex()  << ", is: \n" <<  party1.all_members[9].get_little_function()[1]  << endl; 

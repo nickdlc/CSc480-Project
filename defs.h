@@ -9,5 +9,5 @@ using namespace std;
 #define BYTES2Z(x,buf,len) mpz_import(x,len,-1,1,0,0,buf)
 #define Z2BYTES(buf,len,x) mpz_export(buf,&len,-1,1,0,0,x)
 
-typedef vector<mpz_t*> coefficients_t;
+typedef unsigned int index_t;
 typedef vector<unsigned int> qual_t;
