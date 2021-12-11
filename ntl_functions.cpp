@@ -3,6 +3,8 @@
 #include <NTL/ZZ_pX.h>
 #include <iostream>
 #include <fstream>
+#include "gmp_defs.h"
+
 using std::ifstream;
 using std::ofstream;
 
@@ -20,8 +22,14 @@ int readParams()
 {
 	ifstream fin("params-q-p-g");
 	if (!fin.good()) {
-		fprintf(stderr, "couldn't open parameter file.\n");
-		return 1;
+		printf("couldn't open parameter file, generating new params...\n");
+		generate_params();
+		printf("reading new params...\n");
+		fin = ifstream("params-q-p-g");
+		if (!fin.good()) {
+			fprintf(stderr, "something went wrong when opening parameter file, quiting...\n");
+			return 1;
+		}
 	}
 	/* NOTE: q,p,g declared above at global scope. */
 	fin >> q >> p >> g;
