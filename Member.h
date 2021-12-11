@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <map>
-#include "Party.h"
 #include <NTL/ZZ_pX.h>
 
 #include <fstream>
@@ -45,7 +44,7 @@ class member{
         unsigned int deg;
 
         //constructor
-        member(){}
+        member();
         
         member(int ind);
         
@@ -98,6 +97,15 @@ class member{
         }
         unsigned int get_threshold_size(){
             return this->threshold;
+        }
+        
+        // Expected to only run once after a default initialization
+        void set_threshold_size(unsigned int threshold) {
+            // If the new threshold is not the same as the previous threshold, we need to generate a new random polynomial
+            if (this->threshold != threshold) 
+                set_little_function(random_ZZ_pX(threshold));
+                
+            this->threshold = threshold;
         }
 
         void set_little_function(ZZ_pX f){
