@@ -1,50 +1,41 @@
 #pragma once
+
+#include <NTL/ZZ_pX.h>
 #include <vector>
 #include "Member.h"
 #include <iostream>
 using namespace std;
 
+// These are the global q, p, and g variables from NTL
+extern ZZ q, p, g;
+
 //represents the party
 class party{
 
     public: 
-        int g; //generator g
-        unsigned int size_of_party; // n 
-        vector<member> all_members = { }; //all members in the group
+        unsigned int size_of_party; // n
+        
+        // This class member should be accessed by all members to see the
+        static vector<member> all_members; //all members in the group
+        
         unsigned int threshold; // size of t must be < n
         vector<member> members_in_threshold_group; //all members in the threshold group
-        int public_key; //public key of the group will be the product of everyone's little function
+        ZZ_p public_key; //public key of the group will be the product of everyone's little function
         
 
+        // Constructors located in the implementation file Party.cpp
         //constructor
 
-        party() {};
+        party();
 
-        party(unsigned int size_of_party, unsigned int threshold, vector<member> all_members){ 
-            this->size_of_party = size_of_party;
-            this->threshold = threshold;
-            set_party_members(all_members);//to update the all_members vector
-            for(int i = 0; i < all_members.size(); i++){
-               this->all_members[i].size_of_party = this->size_of_party; //sets the size_of_party variable of the member
-               this->all_members[i].threshold = this->threshold; //sets the threshold variable of the member
-               
-            }
-        };
+        party(unsigned int size_of_party, unsigned int threshold, vector<member> all_members);
 
         //copy constructor
-        party(const party& p){
-            this->size_of_party = p.size_of_party;
-            this->threshold = p.threshold;
-            for(int i = 0; i < this->size_of_party; i++){
-               this->all_members[i] = p.all_members[i];
-
-            }
-        }
-
+        party(const party& p);
     
         void set_public_key(){};
 
-        float get_public_key(){
+        ZZ_p get_public_key(){
             return public_key;
         }
 

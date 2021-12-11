@@ -10,3 +10,5 @@ ntl*
 *.tgz
 gen-params/
 main
+
+.vscode

@@ -25,15 +25,13 @@ class member{
         float big_function_evaluated;//big function evaluated at our index
         map<member*, float> big_function_evaluated_by_others; // stores the evaluation of the big function by the members in the group
         float big_secret; //our computation of the secret being communicated to the group 
-        map<member*, float> shares_for_others; //stores to then distribute all shares you compute for the other members in the group based on your little function.
-        map<member*, float> shares_from_others; //stores all shares the other members of the group will send you
-        map<member*, vector<float> > othersCoefficients; //store the coefficients vector of the others members for phase 2
+        mutable map<const member*, ZZ_p> shares_for_others; //stores to then distribute all shares you compute for the other members in the group based on your little function.
+        mutable map<const member*, ZZ_p> shares_from_others; //stores all shares the other members of the group will send you
+        mutable map<const member*, vector<float> > othersCoefficients; //store the coefficients vector of the others members for phase 2
         vector<float> my_coefficients; //stores the coefficients of the member's polynomial (little function) 
         qual_t qualified_players; // list of qualified players
         ZZ_pX function;
-
-
-        map<member_index_t, ZZ_p> member_shares;
+        
     public:
         //party my_party; 
         int index; //index of the member   
@@ -73,9 +71,10 @@ class member{
         //generate a share for everyone else in the threshold -- excluding yourself
         void generate_shares();
             
+        void recieve_share(const member *m, const ZZ_p share) const;
 
         //refers to the other member objects in the party to set their shares_from_others map based on our shares_for_others map.
-        void set_shares_for_others(){};
+        void set_shares_for_others();
 
         //will update your shares_from_others map if verify_share is true else will broadcast a warning message about you.
         void update_all_shares(){}; //get an index 
