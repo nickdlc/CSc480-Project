@@ -1,31 +1,23 @@
 #include "Party.h"
-//constructor
 
-vector<member> party::all_members = vector<member>();
-
-party::party(){};
-
-party::party(unsigned int size_of_party, unsigned int threshold, vector<member> all_members)
+party::party(unsigned int num_all_members, unsigned int threshold)
 {
-    this->size_of_party = size_of_party;
+    this->num_all_members = num_all_members;
     this->threshold = threshold;
-    set_party_members(all_members); //to update the all_members vector
-    for (int i = 0; i < all_members.size(); i++)
+    // add members to the party with only identity and threshold
+    for (int i = 0; i < num_all_members; i++)
     {
-        this->all_members[i].size_of_party = this->size_of_party; //sets the size_of_party variable of the member
-        this->all_members[i].threshold = this->threshold;         //sets the threshold variable of the member
-        // 12/15 Jae
-        // this->all_members[i].setIndex(i)                          // set index of the member
+        this->all_members.push_back(member(i, threshold));
+    }
+    // randomly pick size of participating party(< total members and >= threhold)
+    this->num_participating_members = RandomBnd(num_all_members - threshold + 1) + threshold;
+    // randomly drop residual members
+    this->participating_members = this->all_members;
+    int n = this->num_all_members - this->num_participating_members;
+    for (int i = 0; i < n; i++)
+    {
+        // target = RandomBnd(size of vector);
+        // delete by target index
+        this->participating_members.erase(this->participating_members.begin() + RandomBnd(this->participating_members.size()));
     }
 };
-
-//copy constructor
-party::party(const party &p)
-{
-    this->size_of_party = p.size_of_party;
-    this->threshold = p.threshold;
-    for (int i = 0; i < this->size_of_party; i++)
-    {
-        this->all_members[i] = p.all_members[i];
-    }
-}

@@ -13,18 +13,21 @@ LDADD    := -lntl -lgmp -lm
 # .PHONY : debug
 # }}}
 
-main: Party.o Member.o main.o
-	$(CC) main.o Member.o Party.o $(CXXFLAGS) -o main $(LDADD)
+main: Party.o Member.o main.o ntl_gmp.o
+	$(CC) main.o Member.o Party.o ntl_gmp.o $(CXXFLAGS) -o main $(LDADD)
 	
-main.o: main.cpp defs.h
+main.o: main.cpp
 	$(CC) -std=c++11 -c main.cpp -o main.o
 	
-Member.o: Member.cpp Member.h defs.h
+Member.o: Member.cpp Member.h
 	$(CC) -std=c++11 -c Member.cpp -o Member.o
 	
-Party.o: Party.cpp Party.h defs.h
+Party.o: Party.cpp Party.h
 	$(CC) -std=c++11 -c Party.cpp -o Party.o
 
+ntl_gmp.o: ntl_gmp.cpp ntl_gmp.h
+	$(CC) -std=c++11 -c ntl_gmp.cpp -o ntl_gmp.o
+	
 #for each  source file "foo.cpp", compile into program named "foo"
 # $(TARGETS) : % : %.cpp
 # 	$(CC) $(CXXFLAGS) -o $@ $< $(LDADD)
