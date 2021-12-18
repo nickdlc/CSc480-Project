@@ -58,23 +58,23 @@ int main(int argc, char *argv[])
     // cout << "g = " << g << endl;
     initNTLRandom();
 
-    // initialize party with n members and t threshold
+    // // initialize party with n members and t threshold
     party p = party(n, t);
 
-    cout << "total member count = " << p.all_members.size() << endl;
-    cout << "participating member count = " << p.participating_members.size() << endl;
+    // cout << "total member count = " << p.all_members.size() << endl;
+    // cout << "participating member count = " << p.participating_members.size() << endl;
 
-    for (int i = 0; i < p.all_members.size(); i++)
-    {
-        cout << "all_members[" << i << "]'s identity = " << p.all_members[i].identity << endl;
-        cout << "all_members[" << i << "]'s polynomial = " << p.all_members[i].get_my_poly() << endl;
-    }
+    // for (int i = 0; i < p.all_members.size(); i++)
+    // {
+    //     cout << "\nall_members[" << i << "]'s identity = " << p.all_members[i].identity << endl;
+    //     cout << "all_members[" << i << "]'s polynomial = " << p.all_members[i].get_my_poly() << endl;
+    // }
 
-    for (int i = 0; i < p.participating_members.size(); i++)
-    {
-        cout << "participating_members[" << i << "]'s identity = " << p.participating_members[i].identity << endl;
-        cout << "participating_members[" << i << "]'s polynomial = " << p.participating_members[i].get_my_poly() << endl;
-    }
+    // for (int i = 0; i < p.participating_members.size(); i++)
+    // {
+    //     cout << "\nparticipating_members[" << i << "]'s identity = " << p.participating_members[i].identity << endl;
+    //     cout << "participating_members[" << i << "]'s polynomial = " << p.participating_members[i].get_my_poly() << endl;
+    // }
 
     cout << "my_poly = " << p.participating_members[0].get_my_poly() << endl;
     cout << "my_secret_key = " << p.participating_members[0].get_my_secret_key() << endl;
