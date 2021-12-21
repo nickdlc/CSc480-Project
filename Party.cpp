@@ -10,6 +10,8 @@ party::party(unsigned int num_all_members, unsigned int threshold)
     this->set_dishonest_members();
     this->exchange();
     this->set_big_points();
+    this->set_group_secret_key();
+    this->set_group_public_key();
 };
 
 void party::set_all_members()
@@ -84,4 +86,17 @@ void party::set_big_points()
     {
         participating_members[i].set_my_share();
     }
+}
+
+void party::set_group_public_key()
+{
+    for (int i = 0; i < this->num_participating_members; i++)
+    {
+        add(this->group_public_key, this->group_public_key, participating_members[i].my_public_key); // x = a + b
+    }
+}
+
+void party::set_group_secret_key()
+{
+    ;
 }

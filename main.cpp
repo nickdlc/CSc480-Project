@@ -115,5 +115,7 @@ int main(int argc, char *argv[])
         cout << "member[" << p.participating_members[i].identity << "].my_share = " << p.participating_members[i].get_my_share() << endl;
     }
 
+    cout << "\ngroup_public_key = " << p.group_public_key << endl;
+
     return 0;
 }

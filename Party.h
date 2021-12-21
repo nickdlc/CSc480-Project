@@ -18,11 +18,12 @@ public:
     // vector of participating members
     vector<member> participating_members;
     // public key of the group
-    ZZ_p group_public_key;
+    ZZ_p group_public_key = conv<ZZ_p>(1);
     // # of dishonest members
     int num_dishonest_members;
     party(unsigned int num_all_members, unsigned int threshold);
     vector<member> get_dishonest_members() { return this->dishonest_members; }
+    void set_group_public_key();
 
 private:
     // secret key of the group
@@ -33,4 +34,5 @@ private:
     vector<member> dishonest_members;
     void exchange();
     void set_big_points();
+    void set_group_secret_key();
 };
