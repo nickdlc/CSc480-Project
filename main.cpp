@@ -72,8 +72,8 @@ int main(int argc, char *argv[])
     // initialize party with n members and t threshold
     party p = party(n, t);
 
-    // cout << "total member count = " << p.all_members.size() << endl;
-    // cout << "participating member count = " << p.participating_members.size() << "\n\n";
+    cout << "total member count = " << p.all_members.size() << endl;
+    cout << "participating member count = " << p.participating_members.size() << "\n\n";
     // cout << "total members,\n";
 
     // for (int i = 0; i < p.all_members.size(); i++)

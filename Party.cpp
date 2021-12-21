@@ -98,13 +98,13 @@ void party::set_group_public_key()
 
 void party::set_group_secret_key()
 {
-    vec_ZZ_p tmp;
     const size_t n = this->num_participating_members;
-    tmp.SetLength(n);
+    vec_ZZ_p A;
+    A.SetLength(n);
     for (size_t i = 0; i < n; i++)
     {
-        tmp[i] = participating_members[i].get_my_share();
+        A[i] = participating_members[i].get_my_share();
     }
-    /* now let's get the vandermonde matrix from these values: */
-    this->group_secret_key = vandermonde(tmp);
+    mat_ZZ_p V = vandermonde(A);
+    this->group_secret_key = inv(V);
 }
