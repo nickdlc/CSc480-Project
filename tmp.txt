@@ -1,16 +1,3 @@
-need to fill my_points
-
-// 2d vector, each element consists of identity, a point, public key
-
-// party method 'exchange'
-
-for loop(size of participating_members)
-    reference the point with eval(, ZZ_p(.identity))
-    call member method 'receive_points'
-    public key exchange
-
-exchange()
-
 // if dishonest is true call malicious function else call normal function
 
 if(~.dishonest?)
