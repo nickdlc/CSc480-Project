@@ -92,11 +92,19 @@ void party::set_group_public_key()
 {
     for (int i = 0; i < this->num_participating_members; i++)
     {
-        add(this->group_public_key, this->group_public_key, participating_members[i].my_public_key); // x = a + b
+        add(this->group_public_key, this->group_public_key, participating_members[i].my_public_key);
     }
 }
 
 void party::set_group_secret_key()
 {
-    ;
+    vec_ZZ_p tmp;
+    const size_t n = this->num_participating_members;
+    tmp.SetLength(n);
+    for (size_t i = 0; i < n; i++)
+    {
+        tmp[i] = participating_members[i].get_my_share();
+    }
+    /* now let's get the vandermonde matrix from these values: */
+    this->group_secret_key = vandermonde(tmp);
 }

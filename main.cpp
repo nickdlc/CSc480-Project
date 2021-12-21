@@ -117,5 +117,7 @@ int main(int argc, char *argv[])
 
     cout << "\ngroup_public_key = " << p.group_public_key << endl;
 
+    cout << "\ngroup_secret_key = " << p.get_group_secret_key() << endl;
+
     return 0;
 }
