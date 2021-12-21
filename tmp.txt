@@ -1,7 +1,19 @@
-ntl_gmp.cpp line 140
+need to fill my_points
 
-main.cpp line 20
-member.cpp line 3
-ntl_gmp.h line 6
+// 2d vector, each element consists of identity, a point, public key
 
-first find secret key as ZZ and store it as temp
+// party method 'exchange'
+
+for loop(size of participating_members)
+    reference the point with eval(, ZZ_p(.identity))
+    call member method 'receive_points'
+    public key exchange
+
+exchange()
+
+// if dishonest is true call malicious function else call normal function
+
+if(~.dishonest?)
+	~.dishonest_fuction
+else
+	~.honest_function

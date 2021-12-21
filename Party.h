@@ -2,18 +2,35 @@
 
 #include "Member.h"
 
+vector<int> choose_n_indexes(int arr_size, int n);
+
 class party
 {
 public:
-    unsigned int num_all_members;           // # of all members
-    unsigned int threshold;                 // threshold for the key generatrion
-    vector<member> all_members;             // array of all members
-    unsigned int num_participating_members; // # of participating members(>=threshold)
-    vector<member> participating_members;   // array of participating members
-    ZZ_p group_public_key;                  // public key of the group
+    // # of all members
+    unsigned int num_all_members;
+    // threshold for the key generatrion
+    unsigned int threshold;
+    // vector of all members
+    vector<member> all_members;
+    // # of participating members(>=threshold)
+    unsigned int num_participating_members;
+    // vector of participating members
+    vector<member> participating_members;
+    // public key of the group
+    ZZ_p group_public_key;
+    // # of dishonest members
+    int num_dishonest_members;
     party(unsigned int num_all_members, unsigned int threshold);
+    vector<member> get_dishonest_members() { return this->dishonest_members; }
 
 private:
-    ZZ_p group_secret_key; // secret key of the group
+    // secret key of the group
+    ZZ_p group_secret_key;
+    void set_participating_members();
+    void set_all_members();
+    void set_dishonest_members();
+    vector<member> dishonest_members;
+    void exchange();
+    void set_big_points();
 };
-// change the new_Party.cpp to Party.cpp when finished
