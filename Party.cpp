@@ -7,13 +7,12 @@ party::party(unsigned int num_all_members, unsigned int threshold)
     this->set_all_members();
     this->set_participating_members();
     this->num_participating_members = this->participating_members.size();
-    this->set_coeffs();
     this->set_dishonest_members();
     this->exchange();
-    this->group_set_shares();
-    this->set_group_secret_key();
-    this->set_group_public_key();
-    this->complain();
+    // this->group_set_shares();
+    // this->set_group_secret_key();
+    // this->set_group_public_key();
+    // this->complain();
 };
 
 // add all members to the party
@@ -22,7 +21,7 @@ void party::set_all_members()
     // add members to the party with only identity and threshold
     for (int i = 0; i < num_all_members; i++)
         this->all_members.push_back(member(i, threshold));
-    this->set_participating_members();
+    // this->set_participating_members();
 }
 // choose n, threshold >= n, from the party
 void party::set_participating_members()
@@ -58,6 +57,7 @@ void party::set_dishonest_members()
 {
     // everyone could be dishonest, but we enforce at least 2 members are honest
     this->num_dishonest_members = RandomBnd(this->num_participating_members - 1);
+    this->num_dishonest_members = 0; // ––––––––––––––––delete this line after testing–––––––––––––––– //
     vector<int> indexes = choose_n_indexes(this->num_participating_members, this->num_dishonest_members);
     for (int i = 0; i < this->num_dishonest_members; i++)
     {
@@ -67,14 +67,14 @@ void party::set_dishonest_members()
     }
 }
 
-// store each members masked coefficient in one vector
-void party::set_coeffs()
-{
-    for (int i = 0; i < this->num_participating_members; i++)
-    {
-        this->coeffs.push_back(participating_members[i].my_coeff);
-    }
-}
+// // store each members masked coefficient in one vector
+// void party::set_coeffs()
+// {
+//     for (int i = 0; i < this->num_participating_members; i++)
+//     {
+//         this->coeffs.push_back(participating_members[i].my_coeff);
+//     }
+// }
 
 // members exchange points, public keys
 // exchanging coefficients does not happen here but in set_coeffs()
@@ -99,6 +99,7 @@ void party::exchange()
             else
                 participating_members[j].receive_points(eval(participating_members[i].get_my_poly(), ZZ_p(participating_members[j].identity)));
             participating_members[j].receive_public_keys(participating_members[i].my_public_key);
+            participating_members[j].receive_coeffs(participating_members[i].my_coeff);
         }
     }
 }
@@ -137,13 +138,11 @@ void party::complain()
     {
         for (int j = 0; j < this->num_participating_members; j++)
         {
-            ZZ_p a = power(conv<ZZ_p>(g), conv<ZZ>(participating_members[i].get_points()[j]));
-            // preparing the arguments for coeff_sum
-            vector<ZZ_p> coeff = this->coeffs[j];
-            int identity = participating_members[i].identity;
-            int degree = deg(participating_members[j].get_my_poly());
-            ZZ_p exponent = participating_members[i].coeff_sum(coeff, degree, identity);
-            ZZ_p b = power(conv<ZZ_p>(g), conv<ZZ>(exponent));
+            ZZ_p a = power(conv<ZZ_p>(g), conv<ZZ>(this->participating_members[i].get_points()[j]));
+            // preparing the arguments for coeff_prod
+            vector<ZZ_p> coeff = this->participating_members[i].coeffs[j];
+            int identity = this->participating_members[i].identity;
+            ZZ_p b = this->participating_members[i].coeff_prod(coeff, identity);
             if (a != b)
                 participating_members[j].receive_complaints();
         }

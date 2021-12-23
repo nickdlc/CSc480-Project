@@ -20,15 +20,15 @@ public:
     // public key of the group
     ZZ_p group_public_key = conv<ZZ_p>(1);
     // # of dishonest members
-    int num_dishonest_members;
+    unsigned int num_dishonest_members;
     party(unsigned int num_all_members, unsigned int threshold);
     vector<member> get_dishonest_members() { return this->dishonest_members; }
     void set_group_public_key();
     mat_ZZ_p get_group_secret_key() { return this->group_secret_key; }
     void complain();
     // vector of 'masked' coefficients of all members
-    vector<vector<ZZ_p> > coeffs;
-    void set_coeffs();
+    // vector<vector<ZZ_p> > coeffs;
+    // void set_coeffs();
 
 private:
     // secret key of the group

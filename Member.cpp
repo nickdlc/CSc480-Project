@@ -26,14 +26,12 @@ void member::set_my_coeff()
 }
 
 // computing sum of c_(ik) * j^k, pdf page 2 near the bottom
-ZZ_p member::coeff_sum(vector<ZZ_p> coeff, int degree, int identity)
+ZZ_p member::coeff_prod(vector<ZZ_p> coeff, int identity)
 {
-    ZZ_p result = conv<ZZ_p>(0);
-    ZZ_p term;
-    for (int i = 0; i < degree + 1; i++)
+    ZZ_p result = ZZ_p(1);
+    for (int i = 0; i < coeff.size(); i++)
     {
-        mul(term, coeff[i], power(conv<ZZ_p>(identity), conv<ZZ>(i)));
-        add(result, result, term);
+        mul(result, result, power(coeff[i], power(ZZ(identity), long(i))));
     }
     return result;
 }

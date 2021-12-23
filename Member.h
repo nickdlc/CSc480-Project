@@ -23,14 +23,16 @@ public:
     void receive_public_keys(ZZ_p public_key) { this->public_keys.push_back(public_key); }
     void receive_points(ZZ_p point) { this->points.push_back(point); }
     vector<ZZ_p> get_points() { return this->points; }
-    // void receive_coeffs(vector<ZZ_p> coeff) { this->coeffs.push_back(coeff); }
-    // vector<vector<ZZ_p> > get_coeffs() { return this->coeffs; }
+    void receive_coeffs(vector<ZZ_p> coeff) { this->coeffs.push_back(coeff); }
+    vector<vector<ZZ_p> > get_coeffs() { return this->coeffs; }
+    // all maksed coefficients
+    vector<vector<ZZ_p> > coeffs;
     void set_my_share();
     ZZ_p get_my_share() { return this->my_share; }
     void set_my_coeff();
-    // masked coefficients
+    // my masked coefficients
     vector<ZZ_p> my_coeff;
-    ZZ_p coeff_sum(vector<ZZ_p> coeff, int degree, int identity);
+    ZZ_p coeff_prod(vector<ZZ_p> coeff, int identity);
     // complaints from other members
     int complaints = 0;
     void receive_complaints() { this->complaints++; }
