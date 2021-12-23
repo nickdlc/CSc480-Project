@@ -25,6 +25,10 @@ public:
     vector<member> get_dishonest_members() { return this->dishonest_members; }
     void set_group_public_key();
     mat_ZZ_p get_group_secret_key() { return this->group_secret_key; }
+    void complain();
+    // vector of 'masked' coefficients of all members
+    vector<vector<ZZ_p> > coeffs;
+    void set_coeffs();
 
 private:
     // secret key of the group
@@ -34,6 +38,6 @@ private:
     void set_dishonest_members();
     vector<member> dishonest_members;
     void exchange();
-    void set_big_points();
+    void group_set_shares();
     void set_group_secret_key();
 };

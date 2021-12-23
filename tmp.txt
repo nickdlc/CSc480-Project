@@ -1,6 +1,0 @@
-// if dishonest is true call malicious function else call normal function
-
-if(~.dishonest?)
-	~.dishonest_fuction
-else
-	~.honest_function

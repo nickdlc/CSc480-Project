@@ -64,9 +64,6 @@ int main(int argc, char *argv[])
     // initialize p, q, and g and set ZZ_p to q
     genParams();
     readParams();
-    // cout << "q = " << q << endl;
-    // cout << "p = " << p << endl;
-    // cout << "g = " << g << endl;
     initNTLRandom();
 
     // initialize party with n members and t threshold
@@ -82,42 +79,43 @@ int main(int argc, char *argv[])
     //     // cout << "members[" << i << "].get_mypoly() = " << p.all_members[i].get_my_poly() << endl;
     // }
 
-    // cout << "\nparticipating members,\n";
+    cout << "\nparticipating members,\n";
 
     // for (int i = 0; i < p.participating_members.size(); i++)
     // {
     //     cout << "members[" << p.participating_members[i].identity << "]" << endl;
-    //     // cout << "participating_members[" << i << "]'s polynomial = " << p.participating_members[i].get_my_poly() << endl;
+    // cout << "participating_members[" << p.participating_members[i].identity << "].coeffs = " << p.participating_members[i].get_coeffs()[i][0] << endl;
     // }
 
     // cout << "my_poly = " << p.participating_members[0].get_my_poly() << endl;
     // cout << "my_secret_key = " << p.participating_members[0].get_my_secret_key() << endl;
     // cout << "my_public_key = " << p.participating_members[0].my_public_key << endl;
 
-    // vector<member> tmp = p.get_dishonest_members();
+    vector<member> tmp = p.get_dishonest_members();
 
-    // cout << "\ndishonest member count = " << p.num_dishonest_members << "\n\n";
-    // cout << "dishonest members,\n";
-    // for (int i = 0; i < p.num_dishonest_members; i++)
-    // {
-    //     cout << "dishonest_members[" << tmp[i].identity << "]" << endl;
-    // }
+    cout << "\ndishonest member count = " << p.num_dishonest_members << "\n\n";
+    cout << "dishonest members,\n";
+    for (int i = 0; i < p.num_dishonest_members; i++)
+    {
+        cout << "dishonest_members[" << tmp[i].identity << "]" << endl;
+    }
 
-    // cout << "\n";
+    cout << "\n";
 
-    // for (int i = 0; i < p.num_participating_members; i++)
-    // {
-    //     cout << "member[" << p.participating_members[i].identity << "].is_dishonest = " << p.participating_members[i].get_is_dishonest() << endl;
-    // }
+    for (int i = 0; i < p.num_participating_members; i++)
+    {
+        cout << "member[" << p.participating_members[i].identity << "].is_dishonest = " << p.participating_members[i].get_is_dishonest() << "\n";
+        cout << "member[" << p.participating_members[i].identity << "].complaints = " << p.participating_members[i].complaints << "\n\n";
+    }
 
     for (int i = 0; i < p.num_participating_members; i++)
     {
         cout << "member[" << p.participating_members[i].identity << "].my_share = " << p.participating_members[i].get_my_share() << endl;
     }
 
-    cout << "\ngroup_public_key = " << p.group_public_key << endl;
+    // cout << "\ngroup_public_key = " << p.group_public_key << endl;
 
-    cout << "\ngroup_secret_key = " << p.get_group_secret_key() << endl;
+    // cout << "\ngroup_secret_key = " << p.get_group_secret_key() << endl;
 
     return 0;
 }
