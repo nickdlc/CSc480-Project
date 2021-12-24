@@ -121,14 +121,6 @@ void party::set_group_public_key()
 // set group secret key
 void party::set_group_secret_key()
 {
-    // const size_t n = this->num_participating_members;
-    // vec_ZZ_p A;
-    // A.SetLength(n);
-    // for (size_t i = 0; i < n; i++)
-    //     A[i] = participating_members[i].get_my_share();
-    // mat_ZZ_p V = vandermonde(A);
-    // this->group_secret_key = inv(V);
-
     const size_t n = this->num_participating_members;
 
     // initialize vector of participating member identities
@@ -140,7 +132,7 @@ void party::set_group_secret_key()
     B.SetDims(n,1);
 
     for (size_t i = 0; i < n; i++) {
-        A[i] = participating_members[i].identity;
+        A[i] = ZZ_p(participating_members[i].identity);
         B[i][0] = participating_members[i].get_my_share();
     }
 
