@@ -121,13 +121,46 @@ void party::set_group_public_key()
 // set group secret key
 void party::set_group_secret_key()
 {
+    // const size_t n = this->num_participating_members;
+    // vec_ZZ_p A;
+    // A.SetLength(n);
+    // for (size_t i = 0; i < n; i++)
+    //     A[i] = participating_members[i].get_my_share();
+    // mat_ZZ_p V = vandermonde(A);
+    // this->group_secret_key = inv(V);
+
     const size_t n = this->num_participating_members;
+
+    // initialize vector of participating member identities
     vec_ZZ_p A;
     A.SetLength(n);
-    for (size_t i = 0; i < n; i++)
-        A[i] = participating_members[i].get_my_share();
+
+    // initialize matrix of participating member shares
+    mat_ZZ_p B;
+    B.SetDims(n,1);
+
+    for (size_t i = 0; i < n; i++) {
+        A[i] = participating_members[i].identity;
+        B[i][0] = participating_members[i].get_my_share();
+    }
+
+    // create vandermonde matrix for participating players
     mat_ZZ_p V = vandermonde(A);
-    this->group_secret_key = inv(V);
+
+    // initialize matrix of coefficients of F
+    mat_ZZ_p C;
+
+    // VC = B => C = V^{-1}B
+    mul(C, inv(V), B);
+
+    ZZ_pX F;
+    F.SetLength(n);
+    for (size_t i = 0; i < n; i++) {
+        SetCoeff(F, i, C[i][0]);
+    }
+
+    // s = F(0)
+    eval(this->group_secret_key, F, ZZ_p(0));
 }
 
 // complain dishonest members

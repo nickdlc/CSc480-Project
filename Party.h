@@ -24,7 +24,7 @@ public:
     party(unsigned int num_all_members, unsigned int threshold);
     vector<member> get_dishonest_members() { return this->dishonest_members; }
     void set_group_public_key();
-    mat_ZZ_p get_group_secret_key() { return this->group_secret_key; }
+    ZZ_p get_group_secret_key() { return this->group_secret_key; }
     void complain();
     // vector of 'masked' coefficients of all members
     // vector<vector<ZZ_p> > coeffs;
@@ -32,7 +32,7 @@ public:
 
 private:
     // secret key of the group
-    mat_ZZ_p group_secret_key;
+    ZZ_p group_secret_key;
     void set_participating_members();
     void set_all_members();
     void set_dishonest_members();
